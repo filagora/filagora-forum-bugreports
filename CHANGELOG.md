@@ -5,6 +5,14 @@ All notable changes to this package are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- The dashboard's bug reports screen needs the full `filagora.forums.moderate` ability, like the forum screens. It was gated only by `BugReportPolicy`, which asks `ForumAccess::canModerate()`, and since `filagora-forums` 0.6.5 that also accepts core's frontend-only `filagora.moderate_frontend`, so a frontend-only moderator could open the screen. The policy is unchanged: they can still work the reports from the host's own pages.
+
+### Changed
+
+- Requires `filagora-core` 0.2.3 and `filagora-forums` 0.6.5 or later.
+
 ## [0.1.0] - 2026-11-04
 
 ### Added

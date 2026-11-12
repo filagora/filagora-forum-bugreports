@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
+use Filagora\Core\Support\Abilities as CoreAbilities;
 use Filagora\ForumBugReports\FilagoraForumBugReportsPlugin;
 use Filagora\ForumBugReports\Filament\Resources\BugReports\BugReportResource;
 use Filagora\ForumBugReports\Models\BugReport;
 use Filagora\ForumBugReports\Services\ResolvedBugThreadVisibility;
+use Filagora\ForumBugReports\Tests\Support\HostAccess;
 use Filagora\ForumBugReports\Tests\Support\TestUser;
+use Filament\Facades\Filament;
 use Filament\Panel;
 use Illuminate\Http\Request;
 use Illuminate\Session\ArraySessionHandler;
@@ -62,4 +65,24 @@ it('links to the host\'s thread page only when the host has one', function () {
     app('router')->getRoutes()->refreshNameLookups();
 
     expect(BugReportResource::threadUrl(5))->toEndWith('/threads/5');
+});
+
+it('keeps the dashboard screen for full moderators: a frontend-only moderator still works the reports on the site', function () {
+    $report = bugReport(bugThread());
+    $frontendOnly = TestUser::make('Frontend'.uniqid());
+    HostAccess::$granted[$frontendOnly->id] = [CoreAbilities::MODERATE_FRONTEND];
+
+    expect(Gate::forUser($frontendOnly)->allows('update', $report))->toBeTrue('the site actions still work');
+
+    $panel = Panel::make()->id('admin')->default()->plugin(FilagoraForumBugReportsPlugin::make());
+    Filament::registerPanel($panel);
+    Filament::setCurrentPanel($panel);
+
+    $this->actingAs($frontendOnly);
+    expect(BugReportResource::canViewAny())->toBeFalse()
+        ->and(BugReportResource::canEdit($report))->toBeFalse()
+        ->and(BugReportResource::canCreate())->toBeFalse();
+
+    $this->actingAs(moderator());
+    expect(BugReportResource::canViewAny())->toBeTrue();
 });

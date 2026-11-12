@@ -2,7 +2,7 @@
 
 Bug reports on forum threads, an optional add-on for [`filagora-forums`](https://github.com/filagora/filagora-forums). A site that does not install it has no table, no staff screen and no bug report UI.
 
-Moderators open a report on a thread, assign it and move it through its statuses. Bug reports are a moderator's tool: only people who may moderate the forums can open, change or remove them.
+Moderators open a report on a thread, assign it and move it through its statuses. Bug reports are a moderator's tool: only people who may moderate the forums can open, change or remove them. The dashboard screen needs the full `filagora.forums.moderate` ability: a user holding only core's frontend-only `filagora.moderate_frontend` can work reports from your own pages but does not see the screen.
 
 ## Install
 
