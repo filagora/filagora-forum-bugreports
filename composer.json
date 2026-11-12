@@ -11,8 +11,8 @@
     ],
     "require": {
         "php": "^8.4",
-        "filagora/filagora-core": "^0.2.2",
-        "filagora/filagora-forums": "^0.6",
+        "filagora/filagora-core": "^0.2.3",
+        "filagora/filagora-forums": "^0.6.5",
         "filament/filament": "^5.0"
     },
     "require-dev": {

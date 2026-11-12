@@ -12,6 +12,7 @@ use Filagora\ForumBugReports\Filament\Resources\BugReports\Pages\ListBugReports;
 use Filagora\ForumBugReports\Filament\Resources\BugReports\Schemas\BugReportForm;
 use Filagora\ForumBugReports\Filament\Resources\BugReports\Tables\BugReportsTable;
 use Filagora\ForumBugReports\Models\BugReport;
+use Filagora\Forums\Filament\Concerns\GatedByModerate;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -22,6 +23,8 @@ use UnitEnum;
 
 class BugReportResource extends Resource
 {
+    use GatedByModerate;
+
     protected static ?string $model = BugReport::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBugAnt;
