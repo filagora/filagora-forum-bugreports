@@ -6,7 +6,29 @@ Moderators open a report on a thread, assign it and move it through its statuses
 
 ## What it provides
 
-### What the host does
+### Overview
+
+Bug reports on forum threads, an optional add-on for filagora-forums.
+
+### Tables
+
+`bug_reports`, prefixed `filagora_` by default. A site that already has them can run `php artisan filagora:adopt` instead of migrating.
+
+### Commands
+
+This package adds no commands.
+
+### Events
+
+- `BugReportChanged`: A bug report was opened or changed, from the host's pages or the staff screen.
+
+### Access
+
+This package defines no abilities.
+
+### Using it
+
+#### What the host does
 
 Like forums, this package has no public pages: the host's own thread pages call it.
 
